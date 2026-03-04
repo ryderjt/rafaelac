@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RafaAC</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bahiana&family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+    <defs>
+      <filter id="heroGradientMap" color-interpolation-filters="sRGB">
+        <feColorMatrix type="saturate" values="0" result="mono"/>
+        <feComponentTransfer in="mono" result="mapped">
+          <feFuncR type="table" tableValues="0.08 0.18 0.30 0.48 0.70 0.94 1.00 1.00"/>
+          <feFuncG type="table" tableValues="0.02 0.04 0.06 0.10 0.16 0.40 0.78 0.98"/>
+          <feFuncB type="table" tableValues="0.10 0.19 0.28 0.30 0.24 0.21 0.30 0.97"/>
+        </feComponentTransfer>
+      </filter>
+    </defs>
+  </svg>
+  <div class="film-frame">
+    <header class="top-bar">
+      <a class="brand" href="/">
+        <img src="assets/logo.png" alt="Rafa AC">
+      </a>
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <button type="button">Portfolio</button>
+        <button type="button">About</button>
+        <button type="button">Contact</button>
+      </nav>
+    </header>
+    <div class="top-gradient-underlay" aria-hidden="true"></div>
+
+    <main>
+      <section class="hero" aria-label="Main Intro Section">
+        <div class="hero-content">
+          <figure class="hero-photo-frame" aria-hidden="true">
+            <img src="https://ryderjt.com/assets/portfolio/Landscape/IMG_1327.JPG" alt="">
+            <img class="hero-photo-gradient" src="https://ryderjt.com/assets/portfolio/Landscape/IMG_1327.JPG" alt="">
+          </figure>
+          <div class="title-hitbox" data-title="Rafa Cortes">
+            <h1>Rafa Cortes</h1>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const titleEl = document.querySelector(".hero-content h1");
+    const titleBox = document.querySelector(".title-hitbox");
+    const subtitleEl = document.querySelector(".hero-content p");
+    const frameEl = document.querySelector(".hero-photo-frame");
+
+    function fitTitleToFrame() {
+      if (!titleEl || !titleBox || !frameEl) return;
+
+      titleBox.style.setProperty("--title-stretch-x", "1");
+      titleBox.style.setProperty("--title-stretch-y", "1");
+      if (subtitleEl) {
+        subtitleEl.style.setProperty("--subtitle-stretch-x", "1");
+        subtitleEl.style.setProperty("--subtitle-stretch-y", "1");
+      }
+
+      const frameRect = frameEl.getBoundingClientRect();
+      const titleRect = titleEl.getBoundingClientRect();
+      const subtitleRect = subtitleEl ? subtitleEl.getBoundingClientRect() : null;
+      if (!frameRect.width || !frameRect.height || !titleRect.width || !titleRect.height) return;
+
+      const targetWidth = frameRect.width * 0.94;
+      const targetHeight = frameRect.height * 0.78;
+      const scaleX = targetWidth / titleRect.width;
+      const scaleY = targetHeight / titleRect.height;
+      let subtitleScaleX = 1;
+      let subtitleScaleY = 1;
+      if (subtitleRect && subtitleRect.width && subtitleRect.height) {
+        const subtitleTargetWidth = frameRect.width * 0.34;
+        subtitleScaleX = Math.max(1, Math.min(1.28, subtitleTargetWidth / subtitleRect.width));
+        const subtitleTargetHeight = Math.max(subtitleRect.height, (window.innerHeight - frameRect.bottom) * 0.66);
+        subtitleScaleY = Math.max(1, Math.min(2.8, subtitleTargetHeight / subtitleRect.height));
+      }
+
+      titleBox.style.setProperty("--title-stretch-x", scaleX.toFixed(4));
+      titleBox.style.setProperty("--title-stretch-y", scaleY.toFixed(4));
+      if (subtitleEl) {
+        subtitleEl.style.setProperty("--subtitle-stretch-x", subtitleScaleX.toFixed(4));
+        subtitleEl.style.setProperty("--subtitle-stretch-y", subtitleScaleY.toFixed(4));
+      }
+    }
+
+    window.addEventListener("load", fitTitleToFrame);
+    window.addEventListener("resize", fitTitleToFrame);
+
+    if ("ResizeObserver" in window && frameEl) {
+      const observer = new ResizeObserver(fitTitleToFrame);
+      observer.observe(frameEl);
+    }
+  </script>
+</body>
+</html>
