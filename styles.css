@@ -9,6 +9,9 @@
   --film-scratch-opacity: 0.16;
   --film-flicker-opacity: 0.06;
   --film-text-halation: 0.78;
+  --film-dust-opacity: 0.12;
+  --film-wear-opacity: 0.14;
+  --text-distress-opacity: 0.9;
 }
 
 @font-face {
@@ -135,12 +138,17 @@ body::before {
 body::after {
   inset: 0;
   background-image:
+    radial-gradient(circle at 12% 18%, rgba(0, 0, 0, var(--film-wear-opacity)) 0 2.4%, rgba(0, 0, 0, 0) 6%),
+    radial-gradient(circle at 78% 66%, rgba(0, 0, 0, calc(var(--film-wear-opacity) * 0.92)) 0 1.9%, rgba(0, 0, 0, 0) 5%),
+    radial-gradient(circle at 44% 82%, rgba(0, 0, 0, calc(var(--film-wear-opacity) * 0.78)) 0 1.6%, rgba(0, 0, 0, 0) 4.2%),
+    repeating-radial-gradient(circle at center, rgba(255, 255, 255, var(--film-dust-opacity)) 0 0.6px, rgba(255, 255, 255, 0) 1.2px 4px),
     radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 36%, rgba(0, 0, 0, var(--film-vignette-opacity)) 100%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
-  background-size: cover, 210px 210px;
-  background-repeat: no-repeat, repeat;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 190px 190px, cover, 210px 210px;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat, no-repeat, repeat;
+  background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
   mix-blend-mode: soft-light;
-  opacity: calc(var(--film-grain-opacity) + 0.06);
+  opacity: calc(var(--film-grain-opacity) + 0.08);
   animation: grainShift 0.22s steps(2, end) infinite;
 }
 
@@ -423,16 +431,46 @@ body::after {
   letter-spacing: 0.015em;
   white-space: nowrap;
   color: transparent;
-  background-image: url("https://ryderjt.com/assets/portfolio/Landscape/IMG_1327.JPG");
+  background-image:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.97) 0,
+      rgba(255, 255, 255, 0.97) 3px,
+      rgba(236, 236, 236, 0.93) 4px,
+      rgba(255, 255, 255, 0.97) 6px
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
   background-size:
-    calc(100% / var(--title-stretch-x))
-    calc(100% / var(--title-stretch-y));
-  background-position: center;
+    calc(100% / var(--title-stretch-x)) calc(100% / var(--title-stretch-y)),
+    150px 150px;
+  background-position: center, center;
+  background-blend-mode: normal, multiply;
   -webkit-background-clip: text;
   background-clip: text;
-  filter: grayscale(1) contrast(1.12) brightness(0.78);
+  filter: url(#distressedText) contrast(1.08) brightness(1.06);
   transform: scale(var(--title-stretch-x), var(--title-stretch-y));
   transform-origin: center center;
+  opacity: var(--text-distress-opacity);
+  pointer-events: none;
+}
+
+.title-hitbox::after {
+  content: attr(data-title);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: clamp(2.4rem, 8vw, 7rem);
+  line-height: 1.08;
+  font-family: "Akira Expanded", "Inter", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.015em;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.18);
+  transform: scale(var(--title-stretch-x), var(--title-stretch-y)) translate(0.012em, 0.01em);
+  transform-origin: center center;
+  filter: url(#distressedText) blur(0.15px);
   pointer-events: none;
 }
 
@@ -493,10 +531,10 @@ body::after {
   white-space: nowrap;
   transform: scale(var(--title-stretch-x), var(--title-stretch-y));
   transform-origin: center center;
-  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.35));
-  color: #ffffff;
-  mix-blend-mode: difference;
-  opacity: 0.75;
+  color: transparent;
+  filter: none;
+  text-shadow: none;
+  opacity: 0;
 }
 
 .hero-content p {
@@ -510,11 +548,54 @@ body::after {
   font-family: "Playfair Display", serif;
   text-transform: lowercase;
   letter-spacing: 0.035em;
-  color: var(--text-white);
+  color: transparent;
   filter: none;
+  text-shadow: none;
   opacity: 1;
   transform: scaleX(var(--subtitle-stretch-x));
   transform-origin: center top;
+}
+
+.hero-content p::before {
+  content: attr(data-subtitle);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  color: transparent;
+  background-image:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.98) 0,
+      rgba(255, 255, 255, 0.98) 2px,
+      rgba(236, 236, 236, 0.92) 3px,
+      rgba(255, 255, 255, 0.98) 5px
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.1' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 130px 130px;
+  background-position: center, center;
+  background-blend-mode: normal, multiply;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: url(#distressedText) contrast(1.06) brightness(1.04);
+  transform: scaleX(var(--subtitle-stretch-x));
+  transform-origin: center top;
+  pointer-events: none;
+}
+
+.hero-content p::after {
+  content: attr(data-subtitle);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.16);
+  filter: url(#distressedText) blur(0.12px);
+  transform: scaleX(var(--subtitle-stretch-x)) translate(0.014em, 0.008em);
+  transform-origin: center top;
+  pointer-events: none;
 }
 
 @media (max-width: 1120px) {

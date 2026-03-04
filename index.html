@@ -21,6 +21,13 @@
           <feFuncB type="table" tableValues="0.10 0.19 0.28 0.30 0.24 0.21 0.30 0.97"/>
         </feComponentTransfer>
       </filter>
+      <filter id="distressedText" x="-10%" y="-18%" width="120%" height="140%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="2" seed="7" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+        <feComponentTransfer in="warped">
+          <feFuncA type="table" tableValues="0 0.08 0.32 0.88 1 1"/>
+        </feComponentTransfer>
+      </filter>
     </defs>
   </svg>
   <div class="film-frame">
@@ -46,7 +53,7 @@
           <div class="title-hitbox" data-title="Rafa Cortes">
             <h1>Rafa Cortes</h1>
           </div>
-          <p>creative portfolio</p>
+          <p data-subtitle="creative portfolio">creative portfolio</p>
         </div>
       </section>
     </main>
