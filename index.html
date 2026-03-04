@@ -46,6 +46,7 @@
           <div class="title-hitbox" data-title="Rafa Cortes">
             <h1>Rafa Cortes</h1>
           </div>
+          <p>creative portfolio</p>
         </div>
       </section>
     </main>
@@ -63,7 +64,6 @@
       titleBox.style.setProperty("--title-stretch-y", "1");
       if (subtitleEl) {
         subtitleEl.style.setProperty("--subtitle-stretch-x", "1");
-        subtitleEl.style.setProperty("--subtitle-stretch-y", "1");
       }
 
       const frameRect = frameEl.getBoundingClientRect();
@@ -76,19 +76,15 @@
       const scaleX = targetWidth / titleRect.width;
       const scaleY = targetHeight / titleRect.height;
       let subtitleScaleX = 1;
-      let subtitleScaleY = 1;
       if (subtitleRect && subtitleRect.width && subtitleRect.height) {
-        const subtitleTargetWidth = frameRect.width * 0.34;
-        subtitleScaleX = Math.max(1, Math.min(1.28, subtitleTargetWidth / subtitleRect.width));
-        const subtitleTargetHeight = Math.max(subtitleRect.height, (window.innerHeight - frameRect.bottom) * 0.66);
-        subtitleScaleY = Math.max(1, Math.min(2.8, subtitleTargetHeight / subtitleRect.height));
+        const subtitleTargetWidth = frameRect.width * 0.48;
+        subtitleScaleX = Math.max(1, Math.min(1.2, subtitleTargetWidth / subtitleRect.width));
       }
 
       titleBox.style.setProperty("--title-stretch-x", scaleX.toFixed(4));
       titleBox.style.setProperty("--title-stretch-y", scaleY.toFixed(4));
       if (subtitleEl) {
         subtitleEl.style.setProperty("--subtitle-stretch-x", subtitleScaleX.toFixed(4));
-        subtitleEl.style.setProperty("--subtitle-stretch-y", subtitleScaleY.toFixed(4));
       }
     }
 
