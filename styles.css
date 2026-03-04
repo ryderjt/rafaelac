@@ -447,7 +447,14 @@ body::after {
   background-blend-mode: normal, multiply;
   -webkit-background-clip: text;
   background-clip: text;
-  filter: url(#distressedText) contrast(1.08) brightness(1.06);
+  filter:
+    url(#distressedText)
+    contrast(1.08)
+    brightness(1.06)
+    drop-shadow(0 0 0.05em rgba(255, 255, 255, 0.2))
+    drop-shadow(0 0 0.14em rgba(214, 24, 35, calc(var(--film-text-halation) * 0.26)))
+    drop-shadow(0 0 0.28em rgba(174, 20, 29, calc(var(--film-text-halation) * 0.2)))
+    drop-shadow(0 0 0.42em rgba(74, 12, 14, calc(var(--film-text-halation) * 0.14)));
   transform: scale(var(--title-stretch-x), var(--title-stretch-y));
   transform-origin: center center;
   opacity: var(--text-distress-opacity);
@@ -470,7 +477,10 @@ body::after {
   color: rgba(255, 255, 255, 0.18);
   transform: scale(var(--title-stretch-x), var(--title-stretch-y)) translate(0.012em, 0.01em);
   transform-origin: center center;
-  filter: url(#distressedText) blur(0.15px);
+  filter:
+    url(#distressedText)
+    blur(0.15px)
+    drop-shadow(0 0 0.08em rgba(214, 24, 35, calc(var(--film-text-halation) * 0.16)));
   pointer-events: none;
 }
 
@@ -578,7 +588,13 @@ body::after {
   background-blend-mode: normal, multiply;
   -webkit-background-clip: text;
   background-clip: text;
-  filter: url(#distressedText) contrast(1.06) brightness(1.04);
+  filter:
+    url(#distressedText)
+    contrast(1.06)
+    brightness(1.04)
+    drop-shadow(0 0 0.11em rgba(255, 255, 255, 0.36))
+    drop-shadow(0 0 0.28em rgba(214, 24, 35, calc(var(--film-text-halation) * 0.58)))
+    drop-shadow(0 0 0.58em rgba(174, 20, 29, calc(var(--film-text-halation) * 0.46)));
   transform: scaleX(var(--subtitle-stretch-x));
   transform-origin: center top;
   pointer-events: none;
@@ -592,7 +608,10 @@ body::after {
   display: grid;
   place-items: center;
   color: rgba(255, 255, 255, 0.16);
-  filter: url(#distressedText) blur(0.12px);
+  filter:
+    url(#distressedText)
+    blur(0.12px)
+    drop-shadow(0 0 0.17em rgba(214, 24, 35, calc(var(--film-text-halation) * 0.4)));
   transform: scaleX(var(--subtitle-stretch-x)) translate(0.014em, 0.008em);
   transform-origin: center top;
   pointer-events: none;
