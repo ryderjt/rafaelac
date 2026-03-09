@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="theme-portfolio">
+<body class="theme-portfolio page-transition">
   <div class="site-shell">
     <header class="masthead">
       <a class="wordmark" href="index.html" aria-label="Rafael Cortes home">RAFAEL CORTES</a>
@@ -28,52 +28,74 @@
         </p>
       </section>
 
-      <section class="gallery-grid" aria-label="Photography gallery">
-        <article class="gallery-card gallery-card-tall">
-          <img src="assets/photography/IMG_0919.jpg" alt="Snowy urban alley framed by tall buildings and a glowing street lamp.">
-          <div class="gallery-meta">
-            <p class="gallery-title">Winter Corridor</p>
-            <p class="gallery-caption">Atmosphere, depth, and hard vertical framing.</p>
-          </div>
-        </article>
+      <section class="portfolio-section" aria-label="Architecture studies">
+        <div class="portfolio-section-header">
+          <p class="eyebrow">Architecture Studies</p>
+          <p class="portfolio-section-copy">A tighter set of structural compositions focused on texture, perspective, and form.</p>
+        </div>
 
-        <article class="gallery-card">
-          <img src="assets/photography/IMG_0852.jpg" alt="Close view of brick buildings and fire escapes in warm evening light.">
-          <div class="gallery-meta">
-            <p class="gallery-title">Fire Escape Study</p>
-            <p class="gallery-caption">Graphic lines and color tension across the facade.</p>
-          </div>
-        </article>
+        <div class="gallery-grid gallery-grid-compact">
+          <article class="gallery-card">
+            <img src="assets/photography/IMG_0919.jpg" alt="Snowy urban alley framed by tall buildings and a glowing street lamp.">
+            <div class="gallery-meta">
+              <p class="gallery-index">01</p>
+              <p class="gallery-title">Winter Corridor</p>
+              <p class="gallery-caption">Atmosphere, depth, and hard vertical framing.</p>
+            </div>
+          </article>
 
-        <article class="gallery-card">
-          <img src="assets/photography/IMG_0724.jpg" alt="Tall modern skyscraper against a bright blue sky.">
-          <div class="gallery-meta">
-            <p class="gallery-title">Tower Light</p>
-            <p class="gallery-caption">A bright architectural portrait with a minimal palette.</p>
-          </div>
-        </article>
+          <article class="gallery-card">
+            <img src="assets/photography/IMG_0724.jpg" alt="Tall modern skyscraper against a bright blue sky.">
+            <div class="gallery-meta">
+              <p class="gallery-index">02</p>
+              <p class="gallery-title">Tower Light</p>
+              <p class="gallery-caption">A bright architectural portrait with a minimal palette.</p>
+            </div>
+          </article>
 
-        <article class="gallery-card gallery-card-wide">
-          <img src="assets/photography/IMG_0730.jpg" alt="Downtown city corridor with traffic, glass towers, and a distant church spire.">
-          <div class="gallery-meta">
-            <p class="gallery-title">Street Axis</p>
-            <p class="gallery-caption">Movement, compression, and layered urban texture.</p>
-          </div>
-        </article>
+          <article class="gallery-card">
+            <img src="assets/photography/IMG_0725.jpg" alt="Upward-looking angle of a modern high-rise building with repeating window patterns.">
+            <div class="gallery-meta">
+              <p class="gallery-index">03</p>
+              <p class="gallery-title">Gridline</p>
+              <p class="gallery-caption">An angular study in repetition and perspective.</p>
+            </div>
+          </article>
+        </div>
+      </section>
 
-        <article class="gallery-card">
-          <img src="assets/photography/IMG_0725.jpg" alt="Upward-looking angle of a modern high-rise building with repeating window patterns.">
-          <div class="gallery-meta">
-            <p class="gallery-title">Gridline</p>
-            <p class="gallery-caption">An angular study in repetition and perspective.</p>
-          </div>
-        </article>
+      <section class="portfolio-section" aria-label="Urban details">
+        <div class="portfolio-section-header">
+          <p class="eyebrow">Urban Details</p>
+          <p class="portfolio-section-copy">Closer studies of facades and streets where the graphic rhythm becomes the subject.</p>
+        </div>
+
+        <div class="gallery-grid gallery-grid-compact">
+          <article class="gallery-card">
+            <img src="assets/photography/IMG_0852.jpg" alt="Close view of brick buildings and fire escapes in warm evening light.">
+            <div class="gallery-meta">
+              <p class="gallery-index">04</p>
+              <p class="gallery-title">Fire Escape Study</p>
+              <p class="gallery-caption">Graphic lines and color tension across the facade.</p>
+            </div>
+          </article>
+
+          <article class="gallery-card">
+            <img src="assets/photography/IMG_0730.jpg" alt="Downtown city corridor with traffic, glass towers, and a distant church spire.">
+            <div class="gallery-meta">
+              <p class="gallery-index">05</p>
+              <p class="gallery-title">Street Axis</p>
+              <p class="gallery-caption">Movement, compression, and layered urban texture.</p>
+            </div>
+          </article>
+        </div>
       </section>
     </main>
   </div>
   <script>
     (function () {
       const wordmark = document.querySelector(".wordmark");
+      const pageLinks = document.querySelectorAll('a[href="index.html"], a[href="portfolio.html"]');
       const fitWordmark = () => {
         if (!wordmark || !wordmark.parentElement) return;
         wordmark.style.fontSize = "";
@@ -97,9 +119,27 @@
         }
       };
 
+      const handlePageTransition = (event) => {
+        const href = event.currentTarget.getAttribute("href");
+        if (!href) return;
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+        event.preventDefault();
+        document.body.classList.add("is-leaving");
+        window.setTimeout(() => {
+          window.location.href = href;
+        }, 320);
+      };
+
       document.querySelector('[data-nav="portfolio"]')?.classList.add("is-active");
+      pageLinks.forEach((link) => {
+        link.addEventListener("click", handlePageTransition);
+      });
       window.addEventListener("resize", fitWordmark);
       window.addEventListener("load", fitWordmark);
+      window.addEventListener("pageshow", () => {
+        document.body.classList.remove("is-leaving");
+      });
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(fitWordmark);
       }

@@ -61,6 +61,10 @@ body {
   overflow-x: clip;
 }
 
+body.page-transition {
+  overflow-x: clip;
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -72,6 +76,44 @@ body::before {
   background-size: 40px 40px;
   mask-image: radial-gradient(circle at center, black 55%, transparent 100%);
   opacity: 0.55;
+}
+
+body.page-transition::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: #050505;
+  transform: translateY(0);
+}
+
+body.page-transition::after {
+  animation: transitionReveal 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+body.page-transition.is-leaving::after {
+  animation: transitionCover 320ms cubic-bezier(0.55, 0, 0.25, 1) forwards;
+}
+
+@keyframes transitionReveal {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes transitionCover {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
 }
 
 .site-shell {
@@ -275,10 +317,13 @@ body::before {
 }
 
 .feature-strip,
-.showcase,
 .about-section,
 .portfolio-main {
   padding: 28px;
+}
+
+.showcase {
+  padding: 28px 0 28px 28px;
 }
 
 .feature-strip {
@@ -322,6 +367,11 @@ body::before {
   color: var(--muted);
 }
 
+.showcase .section-heading .eyebrow,
+.about-section .section-heading .eyebrow {
+  color: var(--ink);
+}
+
 .section-heading h2,
 .portfolio-hero h1 {
   font-size: clamp(2.8rem, 7vw, 6rem);
@@ -337,9 +387,32 @@ body::before {
   align-items: start;
 }
 
+.showcase-top {
+  display: grid;
+  grid-template-columns: minmax(360px, 1fr) minmax(560px, 920px);
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 24px;
+  padding-right: 0;
+}
+
+.showcase-top .section-heading {
+  max-width: 28rem;
+  margin-bottom: 0;
+  padding-top: 8px;
+}
+
 .showcase-image {
-  aspect-ratio: 5 / 4;
+  width: min(100%, 980px);
+  aspect-ratio: 3 / 1;
   min-height: 0;
+  justify-self: end;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.showcase-image img {
+  object-position: 78% center;
 }
 
 .showcase-text,
@@ -348,6 +421,13 @@ body::before {
   gap: 18px;
   align-content: start;
   padding: 8px 0 0;
+}
+
+.showcase-text {
+  max-width: 42rem;
+  margin: 0 auto;
+  justify-items: center;
+  text-align: center;
 }
 
 .showcase-text p,
@@ -371,12 +451,43 @@ body::before {
 }
 
 .about-layout {
-  grid-template-columns: minmax(320px, 0.82fr) minmax(0, 1.18fr);
+  display: grid;
+  grid-template-columns: minmax(360px, 0.95fr) minmax(340px, 0.9fr);
+  gap: 36px;
+  align-items: stretch;
+}
+
+.about-text {
+  display: grid;
+  align-content: start;
+  justify-items: end;
+  text-align: right;
+}
+
+.about-text .section-heading {
+  margin-bottom: 18px;
+}
+
+.about-text .section-heading .eyebrow,
+.about-text .section-heading h2,
+.about-copy p {
+  text-align: right;
 }
 
 .about-image {
-  aspect-ratio: 4 / 5;
-  min-height: 0;
+  width: 100%;
+  min-height: clamp(320px, 32vw, 520px);
+  height: calc(100% - 28px);
+  max-height: 520px;
+  aspect-ratio: auto;
+  align-self: start;
+  justify-self: start;
+  margin-right: auto;
+  transform: translateX(-28px);
+}
+
+.about-image img {
+  object-position: 50% 34%;
 }
 
 .portfolio-main {
@@ -404,24 +515,40 @@ body::before {
   color: rgba(241, 239, 232, 0.74);
 }
 
+.portfolio-section {
+  padding-top: 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.portfolio-section-header {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.portfolio-section .eyebrow,
+.gallery-index {
+  color: rgba(241, 239, 232, 0.58);
+}
+
+.portfolio-section-copy {
+  margin: 0;
+  max-width: 42rem;
+  color: rgba(241, 239, 232, 0.74);
+}
+
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 18px;
-  padding-top: 26px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.gallery-grid-compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .gallery-card {
-  grid-column: span 4;
   background: #0d0d0d;
-}
-
-.gallery-card-tall {
-  grid-column: span 5;
-}
-
-.gallery-card-wide {
-  grid-column: span 7;
 }
 
 .gallery-card img {
@@ -433,12 +560,26 @@ body::before {
 }
 
 .gallery-meta {
-  padding: 16px 16px 18px;
+  padding: 12px 12px 14px;
   border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
+.gallery-index {
+  margin: 0 0 8px;
+  font-family: "Akira Expanded", sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 .gallery-title {
+  margin-bottom: 10px;
   color: var(--paper);
+}
+
+.gallery-caption {
+  font-size: 0.98rem;
+  line-height: 1.45;
 }
 
 @media (max-width: 1120px) {
@@ -446,6 +587,17 @@ body::before {
   .showcase-layout,
   .about-layout {
     grid-template-columns: 1fr;
+  }
+
+  .showcase-top {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    gap: 24px;
+  }
+
+  .showcase-top .section-heading {
+    max-width: none;
+    padding-top: 0;
   }
 
   .hero-copy,
@@ -471,10 +623,18 @@ body::before {
     aspect-ratio: 4 / 5;
   }
 
-  .gallery-card,
-  .gallery-card-tall,
-  .gallery-card-wide {
-    grid-column: span 6;
+  .about-image {
+    min-height: 0;
+    height: auto;
+    transform: none;
+  }
+
+  .about-image img {
+    object-position: center;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -540,9 +700,15 @@ body::before {
     aspect-ratio: 3 / 4.3;
   }
 
-  .gallery-card,
-  .gallery-card-tall,
-  .gallery-card-wide {
-    grid-column: 1 / -1;
+  .gallery-grid-compact {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.page-transition::after,
+  body.page-transition.is-leaving::after {
+    animation: none;
+    transform: translateY(-100%);
   }
 }
