@@ -46,8 +46,11 @@
 }
 
 html {
-  scroll-behavior: smooth;
   overflow-x: clip;
+}
+
+html.is-smooth-scroll {
+  scroll-behavior: smooth;
 }
 
 body {

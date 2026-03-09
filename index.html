@@ -113,10 +113,14 @@
   </div>
   <script>
     (function () {
+      const root = document.documentElement;
       const wordmarks = document.querySelectorAll(".wordmark");
       const links = document.querySelectorAll(".nav-link");
       const pageLinks = document.querySelectorAll('a[href="index.html"], a[href="portfolio.html"]');
       const aboutSection = document.querySelector("#about");
+      const enableSmoothScroll = () => {
+        root.classList.add("is-smooth-scroll");
+      };
       const fitWordmarks = () => {
         wordmarks.forEach((wordmark) => {
           const parent = wordmark.parentElement;
@@ -179,8 +183,10 @@
       window.addEventListener("resize", setActive);
       window.addEventListener("load", fitWordmarks);
       window.addEventListener("load", setActive);
+      window.addEventListener("load", enableSmoothScroll, { once: true });
       window.addEventListener("pageshow", () => {
         document.body.classList.remove("is-leaving");
+        enableSmoothScroll();
       });
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(fitWordmarks);
