@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | Rafael Cortes</title>
+  <meta name="description" content="Selected photography and film work by Rafael Cortes.">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-portfolio">
+  <div class="site-shell">
+    <header class="masthead">
+      <a class="wordmark" href="index.html" aria-label="Rafael Cortes home">RAFAEL CORTES</a>
+      <nav class="main-nav" aria-label="Primary">
+        <a class="nav-link" href="index.html">Landing</a>
+        <a class="nav-link" data-nav="portfolio" href="portfolio.html">Portfolio</a>
+        <a class="nav-link" href="index.html#about">About</a>
+      </nav>
+    </header>
+
+    <main class="portfolio-main">
+      <section class="portfolio-hero">
+        <p class="eyebrow">Portfolio</p>
+        <h1>Selected Work</h1>
+        <p class="portfolio-intro">
+          A focused set of images built around vertical space, contrast, and city rhythm.
+        </p>
+      </section>
+
+      <section class="gallery-grid" aria-label="Photography gallery">
+        <article class="gallery-card gallery-card-tall">
+          <img src="assets/photography/IMG_0919.jpg" alt="Snowy urban alley framed by tall buildings and a glowing street lamp.">
+          <div class="gallery-meta">
+            <p class="gallery-title">Winter Corridor</p>
+            <p class="gallery-caption">Atmosphere, depth, and hard vertical framing.</p>
+          </div>
+        </article>
+
+        <article class="gallery-card">
+          <img src="assets/photography/IMG_0852.jpg" alt="Close view of brick buildings and fire escapes in warm evening light.">
+          <div class="gallery-meta">
+            <p class="gallery-title">Fire Escape Study</p>
+            <p class="gallery-caption">Graphic lines and color tension across the facade.</p>
+          </div>
+        </article>
+
+        <article class="gallery-card">
+          <img src="assets/photography/IMG_0724.jpg" alt="Tall modern skyscraper against a bright blue sky.">
+          <div class="gallery-meta">
+            <p class="gallery-title">Tower Light</p>
+            <p class="gallery-caption">A bright architectural portrait with a minimal palette.</p>
+          </div>
+        </article>
+
+        <article class="gallery-card gallery-card-wide">
+          <img src="assets/photography/IMG_0730.jpg" alt="Downtown city corridor with traffic, glass towers, and a distant church spire.">
+          <div class="gallery-meta">
+            <p class="gallery-title">Street Axis</p>
+            <p class="gallery-caption">Movement, compression, and layered urban texture.</p>
+          </div>
+        </article>
+
+        <article class="gallery-card">
+          <img src="assets/photography/IMG_0725.jpg" alt="Upward-looking angle of a modern high-rise building with repeating window patterns.">
+          <div class="gallery-meta">
+            <p class="gallery-title">Gridline</p>
+            <p class="gallery-caption">An angular study in repetition and perspective.</p>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script>
+    (function () {
+      const wordmark = document.querySelector(".wordmark");
+      const fitWordmark = () => {
+        if (!wordmark || !wordmark.parentElement) return;
+        wordmark.style.fontSize = "";
+        const availableWidth = Math.max(wordmark.parentElement.clientWidth - 28, 0);
+        if (!availableWidth) return;
+        let fontSize = parseFloat(window.getComputedStyle(wordmark).fontSize);
+        if (!fontSize) return;
+
+        wordmark.style.fontSize = `${fontSize}px`;
+        let width = wordmark.getBoundingClientRect().width;
+        if (!width) return;
+
+        fontSize *= availableWidth / width;
+        wordmark.style.fontSize = `${fontSize.toFixed(2)}px`;
+
+        width = wordmark.getBoundingClientRect().width;
+        while (width > availableWidth && fontSize > 12) {
+          fontSize -= 1;
+          wordmark.style.fontSize = `${fontSize.toFixed(2)}px`;
+          width = wordmark.getBoundingClientRect().width;
+        }
+      };
+
+      document.querySelector('[data-nav="portfolio"]')?.classList.add("is-active");
+      window.addEventListener("resize", fitWordmark);
+      window.addEventListener("load", fitWordmark);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(fitWordmark);
+      }
+      setTimeout(fitWordmark, 150);
+      fitWordmark();
+    }());
+  </script>
+</body>
+</html>

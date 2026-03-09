@@ -3,105 +3,163 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RafaAC</title>
+  <title>Rafael Cortes</title>
+  <meta name="description" content="Portfolio website for Rafael Cortes, a photographer and filmmaker based in Boulder, Colorado.">
   <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bahiana&family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
-    <defs>
-      <filter id="heroGradientMap" color-interpolation-filters="sRGB">
-        <feColorMatrix type="saturate" values="0" result="mono"/>
-        <feComponentTransfer in="mono" result="mapped">
-          <feFuncR type="table" tableValues="0.08 0.18 0.30 0.48 0.70 0.94 1.00 1.00"/>
-          <feFuncG type="table" tableValues="0.02 0.04 0.06 0.10 0.16 0.40 0.78 0.98"/>
-          <feFuncB type="table" tableValues="0.10 0.19 0.28 0.30 0.24 0.21 0.30 0.97"/>
-        </feComponentTransfer>
-      </filter>
-      <filter id="distressedText" x="-10%" y="-18%" width="120%" height="140%" color-interpolation-filters="sRGB">
-        <feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="2" seed="7" result="noise"/>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" result="warped"/>
-        <feComponentTransfer in="warped">
-          <feFuncA type="table" tableValues="0 0.08 0.32 0.88 1 1"/>
-        </feComponentTransfer>
-      </filter>
-    </defs>
-  </svg>
-  <div class="film-frame">
-    <header class="top-bar">
-      <a class="brand" href="/">
-        <img src="assets/logo.png" alt="Rafa AC">
-      </a>
-      <nav class="nav-links" aria-label="Primary Navigation">
-        <button type="button">Portfolio</button>
-        <button type="button">About</button>
-        <button type="button">Contact</button>
-      </nav>
-    </header>
-    <div class="top-gradient-underlay" aria-hidden="true"></div>
-
+<body class="theme-home">
+  <div class="site-shell">
     <main>
-      <section class="hero" aria-label="Main Intro Section">
-        <div class="hero-content">
-          <figure class="hero-photo-frame" aria-hidden="true">
-            <img src="https://ryderjt.com/assets/portfolio/Landscape/IMG_1327.JPG" alt="">
-            <img class="hero-photo-gradient" src="https://ryderjt.com/assets/portfolio/Landscape/IMG_1327.JPG" alt="">
-          </figure>
-          <div class="title-hitbox" data-title="Rafa Cortes">
-            <h1>Rafa Cortes</h1>
+      <section class="home-stage">
+        <header class="masthead">
+          <a class="wordmark" href="index.html" aria-label="Rafael Cortes home">RAFAEL CORTES</a>
+          <nav class="main-nav" aria-label="Primary">
+            <a class="nav-link" data-nav="landing" href="index.html">Landing</a>
+            <a class="nav-link" href="portfolio.html">Portfolio</a>
+            <a class="nav-link" data-nav="about" href="#about">About</a>
+          </nav>
+        </header>
+
+        <section class="hero">
+          <div class="hero-copy">
+            <div class="hero-title-block">
+              <h1>Rafa</h1>
+              <p class="eyebrow">Boulder, Colorado</p>
+            </div>
+            <p class="hero-summary">
+              Photographer and filmmaker making sharp, cinematic images with a young editorial eye.
+            </p>
           </div>
-          <p data-subtitle="creative portfolio">creative portfolio</p>
+
+          <div class="hero-grid" aria-label="Featured photography">
+            <figure class="hero-card hero-card-main">
+              <img src="assets/photography/IMG_0919.jpg" alt="Snowy urban alley framed by tall buildings and a glowing street lamp.">
+            </figure>
+            <figure class="hero-card hero-card-left">
+              <img src="assets/photography/IMG_0852.jpg" alt="Close view of brick buildings and fire escapes in warm evening light.">
+            </figure>
+            <figure class="hero-card hero-card-right">
+              <img src="assets/photography/IMG_0724.jpg" alt="Tall modern skyscraper against a bright blue sky.">
+            </figure>
+          </div>
+        </section>
+      </section>
+
+      <section class="feature-strip" aria-label="Highlights">
+        <div class="feature-panel">
+          <p class="feature-label">Focus</p>
+          <p>Architecture, atmosphere, and portrait-driven visual storytelling.</p>
+        </div>
+        <div class="feature-panel">
+          <p class="feature-label">Approach</p>
+          <p>Clean composition, strong contrast, and a modern magazine-inspired rhythm.</p>
+        </div>
+        <div class="feature-panel">
+          <p class="feature-label">Medium</p>
+          <p>Photography and short-form filmmaking shaped by city texture and natural light.</p>
+        </div>
+      </section>
+
+      <section class="showcase">
+        <div class="section-heading">
+          <p class="eyebrow">Selected Frames</p>
+          <h2>Built like a spread, not a feed.</h2>
+        </div>
+
+        <div class="showcase-layout">
+          <figure class="showcase-image">
+            <img src="assets/photography/IMG_0730.jpg" alt="Downtown city corridor with traffic, glass towers, and a distant church spire.">
+          </figure>
+          <div class="showcase-text">
+            <p>
+              Rafael Cortes, also known as Rafa, is a 16 year old photographer and filmmaker residing in Boulder, Colorado.
+              His work leans into scale, geometry, and atmosphere to make everyday spaces feel cinematic.
+            </p>
+            <p>
+              The site takes cues from editorial artist pages: oversized typography, strong framing, and carefully paced imagery.
+              The goal is to let each photo feel intentional while keeping the overall identity sharp and memorable.
+            </p>
+            <a class="text-link" href="portfolio.html">View the full portfolio</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section" id="about">
+        <div class="section-heading">
+          <p class="eyebrow">About</p>
+          <h2>Young eye. Controlled frame.</h2>
+        </div>
+
+        <div class="about-layout">
+          <div class="about-copy">
+            <p>
+              Rafa is developing a visual language rooted in contrast, structure, and mood. Whether he is shooting architecture,
+              urban detail, or motion-led film work, the focus stays the same: build a frame with presence.
+            </p>
+            <p>
+              Based in Boulder, he brings a clean graphic instinct to image-making and balances it with a documentary sense of place.
+              The result is work that feels both modern and personal.
+            </p>
+          </div>
+
+          <figure class="about-image">
+            <img src="assets/photography/IMG_0725.jpg" alt="Upward-looking angle of a modern high-rise building with repeating window patterns.">
+          </figure>
         </div>
       </section>
     </main>
   </div>
   <script>
-    const titleEl = document.querySelector(".hero-content h1");
-    const titleBox = document.querySelector(".title-hitbox");
-    const subtitleEl = document.querySelector(".hero-content p");
-    const frameEl = document.querySelector(".hero-photo-frame");
+    (function () {
+      const wordmarks = document.querySelectorAll(".wordmark");
+      const links = document.querySelectorAll(".nav-link");
+      const fitWordmarks = () => {
+        wordmarks.forEach((wordmark) => {
+          const parent = wordmark.parentElement;
+          if (!parent) return;
+          wordmark.style.fontSize = "";
+          const availableWidth = Math.max(parent.clientWidth - 28, 0);
+          if (!availableWidth) return;
+          let fontSize = parseFloat(window.getComputedStyle(wordmark).fontSize);
+          if (!fontSize) return;
 
-    function fitTitleToFrame() {
-      if (!titleEl || !titleBox || !frameEl) return;
+          wordmark.style.fontSize = `${fontSize}px`;
+          let width = wordmark.getBoundingClientRect().width;
+          if (!width) return;
 
-      titleBox.style.setProperty("--title-stretch-x", "1");
-      titleBox.style.setProperty("--title-stretch-y", "1");
-      if (subtitleEl) {
-        subtitleEl.style.setProperty("--subtitle-stretch-x", "1");
+          fontSize *= availableWidth / width;
+          wordmark.style.fontSize = `${fontSize.toFixed(2)}px`;
+
+          width = wordmark.getBoundingClientRect().width;
+          while (width > availableWidth && fontSize > 12) {
+            fontSize -= 1;
+            wordmark.style.fontSize = `${fontSize.toFixed(2)}px`;
+            width = wordmark.getBoundingClientRect().width;
+          }
+        });
+      };
+
+      const setActive = () => {
+        links.forEach((link) => link.classList.remove("is-active"));
+        if (window.location.hash === "#about") {
+          document.querySelector('[data-nav="about"]')?.classList.add("is-active");
+          return;
+        }
+        document.querySelector('[data-nav="landing"]')?.classList.add("is-active");
+      };
+
+      window.addEventListener("hashchange", setActive);
+      window.addEventListener("resize", fitWordmarks);
+      window.addEventListener("load", fitWordmarks);
+      window.addEventListener("load", setActive);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(fitWordmarks);
       }
-
-      const frameRect = frameEl.getBoundingClientRect();
-      const titleRect = titleEl.getBoundingClientRect();
-      const subtitleRect = subtitleEl ? subtitleEl.getBoundingClientRect() : null;
-      if (!frameRect.width || !frameRect.height || !titleRect.width || !titleRect.height) return;
-
-      const targetWidth = frameRect.width * 0.94;
-      const targetHeight = frameRect.height * 0.78;
-      const scaleX = targetWidth / titleRect.width;
-      const scaleY = targetHeight / titleRect.height;
-      let subtitleScaleX = 1;
-      if (subtitleRect && subtitleRect.width && subtitleRect.height) {
-        const subtitleTargetWidth = frameRect.width * 0.48;
-        subtitleScaleX = Math.max(1, Math.min(1.2, subtitleTargetWidth / subtitleRect.width));
-      }
-
-      titleBox.style.setProperty("--title-stretch-x", scaleX.toFixed(4));
-      titleBox.style.setProperty("--title-stretch-y", scaleY.toFixed(4));
-      if (subtitleEl) {
-        subtitleEl.style.setProperty("--subtitle-stretch-x", subtitleScaleX.toFixed(4));
-      }
-    }
-
-    window.addEventListener("load", fitTitleToFrame);
-    window.addEventListener("resize", fitTitleToFrame);
-
-    if ("ResizeObserver" in window && frameEl) {
-      const observer = new ResizeObserver(fitTitleToFrame);
-      observer.observe(frameEl);
-    }
+      setTimeout(fitWordmarks, 150);
+      fitWordmarks();
+      setActive();
+    }());
   </script>
 </body>
 </html>
